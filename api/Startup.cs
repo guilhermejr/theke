@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -44,8 +45,19 @@ namespace theke
             );
             services.AddSwaggerGen(config =>
             {
-                config.SwaggerDoc("v1", new OpenApiInfo { Title = "API sistema Theke", Version = "v1" });
+                config.SwaggerDoc("v1", new OpenApiInfo {
+                    Title = "API sistema Theke",
+                    Version = "v1",
+                    Description = "API do sistema Theke.",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Guilherme Jr.",
+                        Email = "falecom@guilhermejr.net",
+                        Url = new Uri("http://www.guilhermejr.net")
+                    }
+                });
             });
+            services.AddCors();
 
         }
 
@@ -56,6 +68,10 @@ namespace theke
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder => builder.AllowAnyMethod()
+                                          .AllowAnyOrigin()
+                                          .AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
