@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using theke.Database;
 
-namespace theke.Migrations
+namespace api.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20200518012328_novoCampo")]
-    partial class novoCampo
+    [Migration("20200519141900_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

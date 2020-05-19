@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace theke.Controllers
 {
@@ -204,14 +205,20 @@ namespace theke.Controllers
                 var usuario = this.database.Usuarios.First(u => u.Id == Int32.Parse(usuarioId));
                 retorno.Usuario = usuario;
 
-                // --- Salva mudanças até aqui ---
-                this.database.SaveChanges();
-
                 // --- Salva Gêneros ---
                 foreach (var genero in retorno.Generos)
                 {
-                    this.database.Add(new LivroGenero { Livro = retorno, Genero = genero });
+                    var gen = this.database.Generos.Where(g => g.Descricao.Equals(genero.Descricao)).FirstOrDefault();
+                    if (gen == null)
+                    {
+                        gen = genero;
+                    }
+
+                    this.database.Add(new LivroGenero { Livro = retorno, Genero = gen });
                 }
+
+                // --- Salva mudanças até aqui ---
+                //this.database.SaveChanges();
 
                 // --- Salva livro ---
                 this.database.Livros.Add(retorno);
