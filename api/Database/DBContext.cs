@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using theke.Models;
+using api.Models;
 
-namespace theke.Database
+namespace api.Database
 {
     public class DBContext : DbContext
     {

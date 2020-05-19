@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace theke.Models
+﻿namespace api.Models
 {
-    public class Autor
+    public class Autor : ModeloPadrao
     {
 
         public int Id { get; set; }

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace theke.Models
+namespace api.Models
 {
-    public class Genero
+    public class Genero : ModeloPadrao
     {
 
         public int Id { get; set; }

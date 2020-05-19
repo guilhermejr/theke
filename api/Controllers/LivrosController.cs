@@ -1,15 +1,14 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using theke.Database;
-using theke.Models;
-using theke.Utils;
+using api.Database;
+using api.Models;
+using api.Utils;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
-namespace theke.Controllers
+namespace api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -208,17 +207,14 @@ namespace theke.Controllers
                 // --- Salva Gêneros ---
                 foreach (var genero in retorno.Generos)
                 {
-                    var gen = this.database.Generos.Where(g => g.Descricao.Equals(genero.Descricao)).FirstOrDefault();
-                    if (gen == null)
+                    var generoBD = this.database.Generos.Where(g => g.Descricao.Equals(genero.Descricao)).FirstOrDefault();
+                    if (generoBD == null)
                     {
-                        gen = genero;
+                        generoBD = genero;
                     }
 
-                    this.database.Add(new LivroGenero { Livro = retorno, Genero = gen });
+                    this.database.Add(new LivroGenero { Livro = retorno, Genero = generoBD });
                 }
-
-                // --- Salva mudanças até aqui ---
-                //this.database.SaveChanges();
 
                 // --- Salva livro ---
                 this.database.Livros.Add(retorno);

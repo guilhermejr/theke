@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using theke.Models;
+using api.Models;
 
-namespace theke.Database
+namespace api.Database
 {
     internal class LivroGeneroConfiguratio : IEntityTypeConfiguration<LivroGenero>
     {

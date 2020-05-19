@@ -4,10 +4,10 @@ using System.Net.Http;
 using AngleSharp;
 using System.Threading.Tasks;
 using AngleSharp.Dom;
-using theke.Models;
+using api.Models;
 using System.Text.RegularExpressions;
 
-namespace theke.Utils
+namespace api.Utils
 {
     public class Skoob
     {

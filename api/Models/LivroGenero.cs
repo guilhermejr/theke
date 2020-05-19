@@ -1,5 +1,4 @@
-﻿using System;
-namespace theke.Models
+﻿namespace api.Models
 {
     public class LivroGenero
     {

@@ -3,7 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using theke.Database;
+using api.Database;
 
 namespace api.Migrations
 {
@@ -17,7 +17,7 @@ namespace api.Migrations
                 .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("theke.Models.Autor", b =>
+            modelBuilder.Entity("api.Models.Autor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -31,7 +31,7 @@ namespace api.Migrations
                     b.ToTable("Autores");
                 });
 
-            modelBuilder.Entity("theke.Models.Editora", b =>
+            modelBuilder.Entity("api.Models.Editora", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -45,7 +45,7 @@ namespace api.Migrations
                     b.ToTable("Editoras");
                 });
 
-            modelBuilder.Entity("theke.Models.Genero", b =>
+            modelBuilder.Entity("api.Models.Genero", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -59,7 +59,7 @@ namespace api.Migrations
                     b.ToTable("Generos");
                 });
 
-            modelBuilder.Entity("theke.Models.Idioma", b =>
+            modelBuilder.Entity("api.Models.Idioma", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -73,7 +73,7 @@ namespace api.Migrations
                     b.ToTable("Idiomas");
                 });
 
-            modelBuilder.Entity("theke.Models.Livro", b =>
+            modelBuilder.Entity("api.Models.Livro", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -125,7 +125,7 @@ namespace api.Migrations
                     b.ToTable("Livros");
                 });
 
-            modelBuilder.Entity("theke.Models.LivroGenero", b =>
+            modelBuilder.Entity("api.Models.LivroGenero", b =>
                 {
                     b.Property<int>("LivroId")
                         .HasColumnType("int");
@@ -140,7 +140,7 @@ namespace api.Migrations
                     b.ToTable("LivroGenero");
                 });
 
-            modelBuilder.Entity("theke.Models.Usuario", b =>
+            modelBuilder.Entity("api.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -160,34 +160,34 @@ namespace api.Migrations
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("theke.Models.Livro", b =>
+            modelBuilder.Entity("api.Models.Livro", b =>
                 {
-                    b.HasOne("theke.Models.Autor", "Autor")
+                    b.HasOne("api.Models.Autor", "Autor")
                         .WithMany()
                         .HasForeignKey("AutorId");
 
-                    b.HasOne("theke.Models.Editora", "Editora")
+                    b.HasOne("api.Models.Editora", "Editora")
                         .WithMany()
                         .HasForeignKey("EditoraId");
 
-                    b.HasOne("theke.Models.Idioma", "Idioma")
+                    b.HasOne("api.Models.Idioma", "Idioma")
                         .WithMany()
                         .HasForeignKey("IdiomaId");
 
-                    b.HasOne("theke.Models.Usuario", "Usuario")
+                    b.HasOne("api.Models.Usuario", "Usuario")
                         .WithMany()
                         .HasForeignKey("UsuarioId");
                 });
 
-            modelBuilder.Entity("theke.Models.LivroGenero", b =>
+            modelBuilder.Entity("api.Models.LivroGenero", b =>
                 {
-                    b.HasOne("theke.Models.Genero", "Genero")
+                    b.HasOne("api.Models.Genero", "Genero")
                         .WithMany("LivroGenero")
                         .HasForeignKey("GeneroId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("theke.Models.Livro", "Livro")
+                    b.HasOne("api.Models.Livro", "Livro")
                         .WithMany("LivroGenero")
                         .HasForeignKey("LivroId")
                         .OnDelete(DeleteBehavior.Cascade)

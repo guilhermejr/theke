@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace theke.Utils
+namespace api.Utils
 {
     public class Paginacao<T> : List<T>
     {

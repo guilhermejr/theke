@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace theke.Models
+﻿namespace api.Models
 {
-    public class Idioma
+    public class Idioma : ModeloPadrao
     {
 
         public int Id { get; set; }

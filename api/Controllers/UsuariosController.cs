@@ -6,11 +6,11 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using theke.Database;
-using theke.Models;
-using theke.Utils;
+using api.Database;
+using api.Models;
+using api.Utils;
 
-namespace theke.Controllers
+namespace api.Controllers
 {
 
     [Route("api/[controller]")]

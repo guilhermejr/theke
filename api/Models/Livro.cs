@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace theke.Models
+namespace api.Models
 {
-    public class Livro
+    public class Livro : ModeloPadrao
     {
 
         public int Id { get; set; }

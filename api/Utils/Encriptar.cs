@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
-namespace theke.Utils
+namespace api.Utils
 {
     public static class Encriptar
     {
