@@ -54,8 +54,7 @@ namespace api.Controllers
                     if (usuario.Senha.Equals(Encriptar.GerarSenha(credencias.Senha)))
                     {
 
-                        string chaveDeSeguranca = "asdhjaf7q8340roq3iuhfqoiu4tqw478qrobwu6rq87owbrox7";
-                        var chaveSimetrica = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(chaveDeSeguranca));
+                        var chaveSimetrica = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(ChaveSeguranca.Chave));
                         var credenciaisDeAcesso = new SigningCredentials(chaveSimetrica, SecurityAlgorithms.HmacSha256Signature);
 
                         var claims = new List<Claim>();

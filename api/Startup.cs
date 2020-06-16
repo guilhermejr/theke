@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using api.Database;
+using api.Utils;
 
 namespace api
 {
@@ -25,8 +26,7 @@ namespace api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string chaveDeSeguranca = "asdhjaf7q8340roq3iuhfqoiu4tqw478qrobwu6rq87owbrox7";
-            var chaveSimetrica = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(chaveDeSeguranca));
+            var chaveSimetrica = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(ChaveSeguranca.Chave));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
                 options.TokenValidationParameters = new TokenValidationParameters

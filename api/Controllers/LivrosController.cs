@@ -17,14 +17,12 @@ namespace api.Controllers
     {
         // --- Atributos -------------------------------------------------------
         private readonly DBContext database;
-        private readonly string usuarioId;
         
 
         // --- Construtor ------------------------------------------------------
         public LivrosController(DBContext database)
         {
             this.database = database;
-            this.usuarioId = HttpContext.User.Claims.First(c => c.Type.ToString().Equals("id")).Value;
         }
 
         [HttpGet("livro/{livroId}")]
@@ -34,6 +32,7 @@ namespace api.Controllers
 
             try
             {
+                var usuarioId = HttpContext.User.Claims.First(c => c.Type.ToString().Equals("id")).Value;
                 if (livroId == 0)
                 {
                     throw new Exception("Livro não encontrado.");
@@ -46,7 +45,7 @@ namespace api.Controllers
                 .Include(l => l.Usuario)
                 .Include(l => l.LivroGenero)
                 .ThenInclude(l => l.Genero)
-                .Where(l => l.Usuario.Id == Int32.Parse(this.usuarioId) && l.Id == livroId)
+                .Where(l => l.Usuario.Id == Int32.Parse(usuarioId) && l.Id == livroId)
                 .First();
 
                 // --- Retorno ---
@@ -64,6 +63,8 @@ namespace api.Controllers
         public async Task<IActionResult> IndexAsync(int pagina)
         {
 
+            var usuarioId = HttpContext.User.Claims.First(c => c.Type.ToString().Equals("id")).Value;
+
             if (pagina == 0)
             {
                 pagina = 1;
@@ -76,7 +77,7 @@ namespace api.Controllers
                 .Include(l => l.Usuario)
                 .Include(l => l.LivroGenero)
                 .ThenInclude(l => l.Genero)
-                .Where(l => l.Usuario.Id == Int32.Parse(this.usuarioId))
+                .Where(l => l.Usuario.Id == Int32.Parse(usuarioId))
                 .OrderBy(l => l.Titulo);
 
             int tamanhoPagina = 3;
@@ -94,6 +95,7 @@ namespace api.Controllers
 
             try
             {
+                var usuarioId = HttpContext.User.Claims.First(c => c.Type.ToString().Equals("id")).Value;
                 var livros = this.database.Livros
                     .Include(l => l.Autor)
                     .Include(l => l.Editora)
@@ -101,9 +103,14 @@ namespace api.Controllers
                     .Include(l => l.Usuario)
                     .Include(l => l.LivroGenero)
                     .ThenInclude(l => l.Genero)
-                    .Where(l => l.Usuario.Id == Int32.Parse(this.usuarioId) && l.Titulo.ToLower().Contains(livro.Titulo.ToLower()))
+                    .Where(l => l.Usuario.Id == Int32.Parse(usuarioId) && l.Titulo.ToLower().Contains(livro.Titulo.ToLower()))
                     .OrderBy(l => l.Titulo)
                     .ToList();
+
+                if (livros.Count() == 0)
+                {
+                    throw new Exception("");
+                }
 
                 // --- Retorno ---
                 return Ok(new { ok = "1", retorno = new { livros } });
@@ -122,8 +129,9 @@ namespace api.Controllers
 
             try
             {
+                var usuarioId = HttpContext.User.Claims.First(c => c.Type.ToString().Equals("id")).Value;
                 var livro = this.database.Livros
-                .Where(l => l.Usuario.Id == Int32.Parse(this.usuarioId) && l.Id == livroId)
+                .Where(l => l.Usuario.Id == Int32.Parse(usuarioId) && l.Id == livroId)
                 .First();
                 this.database.Remove(livro);
                 this.database.SaveChanges();
@@ -147,7 +155,8 @@ namespace api.Controllers
             {
 
                 // --- Verifica se já não existe no banco de dados --
-                var livroBanco = this.database.Livros.Where(l => l.Isbn.Equals(livro.Isbn) && l.Usuario.Id == Int32.Parse(this.usuarioId)).FirstOrDefault();
+                var usuarioId = HttpContext.User.Claims.First(c => c.Type.ToString().Equals("id")).Value;
+                var livroBanco = this.database.Livros.Where(l => l.Isbn.Equals(livro.Isbn) && l.Usuario.Id == Int32.Parse(usuarioId)).FirstOrDefault();
                 if (livroBanco != null)
                 {
                     return Ok(new { ok = "0", msg = "Livro já cadastrado" });
@@ -189,7 +198,7 @@ namespace api.Controllers
                 }
 
                 // --- Usuário ---
-                var usuario = this.database.Usuarios.First(u => u.Id == Int32.Parse(this.usuarioId));
+                var usuario = this.database.Usuarios.First(u => u.Id == Int32.Parse(usuarioId));
                 retorno.Usuario = usuario;
 
                 // --- Salva Gêneros ---
